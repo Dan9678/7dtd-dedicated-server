@@ -10,20 +10,6 @@ Idle Mode for installing mods or making manual changes before startup
 Automatic Configuration Updates via update_config.py
 GitHub Actions Workflow for automated Docker image builds
 
-📂 Project Structure
-7dtd-dedicated-server/
-│── .github/workflows/   # GitHub Actions for CI/CD
-│── server/
-│   ├── Dockerfile       # Docker setup for the server
-│   ├── docker-compose.yml # Docker Compose configuration
-│   ├── install.sh       # Installs/updates the server using SteamCMD
-│   ├── start7dtd.sh     # Starts the dedicated server
-│   ├── update_config.py # Updates serverconfig.xml based on env vars
-│   ├── serverconfig.xml (optional example config)
-│── README.md            # Project documentation
-│── LICENSE              # Open-source license
-│── .gitignore           # Ignore unnecessary files
-
 🛠️ Installation & Setup
 
 1️⃣ Clone the Repository
