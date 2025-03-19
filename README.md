@@ -22,7 +22,6 @@ This repository provides a **Dockerized** setup for running a dedicated *7 Days 
 │   ├── install.sh       # Installs/updates the server using SteamCMD
 │   ├── start7dtd.sh     # Starts the dedicated server
 │   ├── update_config.py # Updates serverconfig.xml based on env vars
-│   ├── serverconfig.xml (optional example config)
 │── README.md            # Project documentation
 │── LICENSE              # Open-source license
 │── .gitignore           # Ignore unnecessary files
@@ -51,7 +50,7 @@ services:
       - "26900-26902:26900-26902/udp"
       - "8080:8080"
     environment:
-      - ServerName=DadsCrazyServer
+      - ServerName=Dad's Crazy Server
       - ServerVisibility=0
       - GameWorld=RWG
       - WorldGenSeed=Afunseed
@@ -129,11 +128,4 @@ This project is licensed under the **MIT License**. See [LICENSE](LICENSE) for d
 
 ---
 
-## 💡 Future Enhancements
-
-- 📦 **Mod Support**: Auto-download and apply mods
-- 🔄 **Automated Backups**
-- 🛠️ **Web-based Admin Panel**
-
-Contributions & PRs are welcome! 🚀
 
