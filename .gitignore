@@ -1,2 +1,2 @@
 server/server_data/
-*.vsidx
+.vs/

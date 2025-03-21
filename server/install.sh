@@ -3,12 +3,13 @@
 # Install/update 7 Days to Die server
 echo "Installing/Updating 7 Days to Die server..."
 
-max_retries=1
-retry_delay=10
+max_retries=3  # Increased retries
+retry_delay=30  # Increased delay
 attempt=1
+install_dir="/home/steam/7dtd_server"  # Specify install directory
 
 while [ $attempt -le $max_retries ]; do
-    /home/steam/steamcmd/steamcmd.sh +force_install_dir /steamapps +login anonymous +app_update 294420 validate +quit
+    /home/steam/steamcmd/steamcmd.sh +force_install_dir "$install_dir" +login anonymous +app_update 294420 validate +quit
     if [ $? -eq 0 ]; then
         echo "Installation/Update successful."
         break
@@ -24,11 +25,18 @@ if [ $attempt -gt $max_retries ]; then
     exit 1
 fi
 
-if [ $MODE -eq "server" ]; then 
+# Set default mode if not specified
+MODE=${MODE:-"manual"}
+
+if [ "$MODE" = "server" ]; then 
     echo "Starting 7DTD server..."
-    start7dtd.sh
+    if ! ./start7dtd.sh; then
+        echo "Failed to start 7DTD server."
+        exit 1
+    fi
 else
     echo "To start server run ./start7dtd.sh or ./install.sh to reinstall 7dtd."
     # Keep the container running
     exec tail -f /dev/null
 fi
+
