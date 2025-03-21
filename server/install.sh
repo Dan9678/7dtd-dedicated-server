@@ -24,7 +24,11 @@ if [ $attempt -gt $max_retries ]; then
     exit 1
 fi
 
-echo "To start server run ./start7dtd.sh or ./install.sh to reinstall 7dtd."
-
-# Keep the container running
-exec tail -f /dev/null
+if [ $MODE -eq "server" ]; then 
+    echo "Starting 7DTD server..."
+    start7dtd.sh
+else
+    echo "To start server run ./start7dtd.sh or ./install.sh to reinstall 7dtd."
+    # Keep the container running
+    exec tail -f /dev/null
+fi
