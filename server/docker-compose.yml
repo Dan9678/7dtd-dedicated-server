@@ -15,6 +15,6 @@ services:
       - WorldGenSeed=Afunseed
       - WorldGenSize=8192
       - GameName=dads_game
-      - MODE=server  # Change to "idle" to prevent auto-start
+      - MODE=server  # Change to "manual" to prevent auto-start
     volumes:
       - ./server_data:/steamapps
