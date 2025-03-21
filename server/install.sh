@@ -6,7 +6,7 @@ echo "Installing/Updating 7 Days to Die server..."
 max_retries=3  # Increased retries
 retry_delay=30  # Increased delay
 attempt=1
-install_dir="/home/steam/7dtd_server"  # Specify install directory
+install_dir="/steamapps"  # Specify install directory
 
 while [ $attempt -le $max_retries ]; do
     /home/steam/steamcmd/steamcmd.sh +force_install_dir "$install_dir" +login anonymous +app_update 294420 validate +quit

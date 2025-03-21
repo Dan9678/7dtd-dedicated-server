@@ -56,7 +56,7 @@ services:
       - WorldGenSeed=Afunseed
       - WorldGenSize=8192
       - GameName=dads_game
-      - MODE=server  # Change to "idle" for manual modifications
+      - MODE=server  # Change to "manual" for manual modifications
     volumes:
       - ./server_data:/steamapps
 ```
@@ -78,7 +78,7 @@ This will:
 To prevent the server from auto-starting:
 
 ```sh
-docker-compose up -d --env MODE=idle
+docker-compose up -d --env MODE=manual
 ```
 
 Then, access the container:
