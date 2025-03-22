@@ -15,16 +15,20 @@ This repository provides a **Dockerized** setup for running a dedicated *7 Days 
 
 ```
 7dtd-dedicated-server/
-│── .github/workflows/   # GitHub Actions for CI/CD
+│── .github/workflows/              # GitHub Actions for CI/CD
 │── server/
-│   ├── Dockerfile       # Docker setup for the server
-│   ├── docker-compose.yml # Docker Compose configuration
-│   ├── install.sh       # Installs/updates the server using SteamCMD
-│   ├── start7dtd.sh     # Starts the dedicated server
-│   ├── update_config.py # Updates serverconfig.xml based on env vars
-│── README.md            # Project documentation
-│── LICENSE              # Open-source license
-│── .gitignore           # Ignore unnecessary files
+│   |── mod_scripts/
+│   │   |── DarknessFalls/
+│   │   │   |── docker-compose.yml  # Mod sample docker-compose.yml
+│   │   │   |── mod_script.sh       # Mod install script       
+│   ├── Dockerfile                  # Docker setup for the server
+│   ├── docker-compose.yml          # Docker Compose configuration
+│   ├── install.sh                  # Installs/updates the server using SteamCMD
+│   ├── start7dtd.sh                # Starts the dedicated server
+│   ├── update_config.py            # Updates serverconfig.xml based on env vars
+│── README.md                       # Project documentation
+│── LICENSE                         # Open-source license
+│── .gitignore                      # Ignore unnecessary files
 ```
 
 ---
@@ -75,13 +79,28 @@ This will:
 
 ### **4️⃣ Idle Mode (For Modding & Manual Changes)**
 
-To prevent the server from auto-starting:
+To prevent the server from auto-starting set MODE=manual in the docker-compose.yml file:
 
-```sh
-docker-compose up -d --env MODE=manual
+```yaml
+services:
+  7dtd-server:
+    build: .
+    ports:
+      - "26900-26902:26900-26902/udp"
+      - "8080:8080"
+    environment:
+      - ServerName=Dad's Crazy Server
+      - ServerVisibility=0
+      - GameWorld=RWG
+      - WorldGenSeed=Afunseed
+      - WorldGenSize=8192
+      - GameName=dads_game
+      - MODE=manual  # Change to "manual" for manual modifications
+    volumes:
+      - ./server_data:/steamapps
 ```
 
-Then, access the container:
+Access the container through Docker Desktop or the console:
 
 ```sh
 docker exec -it <container_id> /bin/sh
@@ -95,30 +114,24 @@ Make changes, then manually start the server:
 
 ### **5️⃣ Stopping the Server**
 
+Stop and kill the server:
+
 ```sh
 docker-compose down
 ```
 
----
-
-## 🔄 Auto-Building with GitHub Actions
-
-This project includes a GitHub Actions workflow to automatically build and push the Docker image.
-
-### **Setting Up GitHub Actions**
-
-1. Create a repository secret for **Docker Hub**:
-   - `DOCKERHUB_USERNAME`
-   - `DOCKERHUB_TOKEN`
-2. Modify `.github/workflows/build.yml` if using GitHub Container Registry (GHCR) instead.
-
-### **Manually Trigger a Build**
+or pause
 
 ```sh
-git push origin main
+docker-compose pause
 ```
 
-This will trigger a GitHub Actions workflow that builds and pushes the latest server image.
+and unpause
+
+```sh
+docker-compose unpause
+```
+
 
 ---
 

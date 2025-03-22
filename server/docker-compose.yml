@@ -1,4 +1,4 @@
-# 7DTD deployment & configuration
+# Vanilla 7DTD deployment & configuration
 # Add any valid serverconfig.xml property key and value 
 # to the environment variables to override the default
 # values
@@ -15,6 +15,6 @@ services:
       - WorldGenSeed=Afunseed
       - WorldGenSize=8192
       - GameName=dads_game
-      - MODE=server  # Change to "manual" to prevent auto-start
+      - MODE=server             # Change to "manual" to prevent auto-start
     volumes:
       - ./server_data:/steamapps

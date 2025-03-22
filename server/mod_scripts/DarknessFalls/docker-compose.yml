@@ -14,7 +14,7 @@ services:
       - EACEnabled=false 		    # Required by mod
       - MOD_SCRIPT=DarknessFalls 	# Required to trigger mod script
       - MODE=manual  			    # Change to "manual" to prevent auto-start
-      - BETA_VERSION="v1.2"         # Darkness Falls mod requires an earlier version of 7DTD
-      - MOD_URL="http://darknessfallsmod.co.uk/DF-V6-DEV-B19.zip" # Where to get the mod
+      - BETA="v1.2"                 # Darkness Falls mod requires an earlier version of 7DTD
+      - MOD_URL=http://darknessfallsmod.co.uk/DF-V6-DEV-B19.zip # Where to get the mod
     volumes:
       - ./server_data:/steamapps
