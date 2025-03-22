@@ -4,7 +4,7 @@
 # Variables
 SERVER_DIR="/steamapps"
 MODS_DIR="${SERVER_DIR}/Mods"
-MOD_URL="https://github.com/KhaineGB/DarknessFalls/archive/refs/heads/master.zip"
+MOD_URL="http://darknessfallsmod.co.uk/DF-V6-DEV-B19.zip"
 TEMP_DIR="/tmp/darkness_falls"
 
 # Ensure the Mods directory exists
@@ -41,8 +41,8 @@ echo "Cleaning up temporary files..."
 rm -rf "${TEMP_DIR}"
 
 # Set environment variables for server configuration
-export GameWorld="DFalls-Navezgane"
-export GameName="Darkness Falls Server"
-export EACEnabled="false"
+#export GameWorld="DFalls-Navezgane"
+#export GameName="Darkness Falls Server"
+#export EACEnabled="false"
 
 echo "Darkness Falls mod installed successfully."
