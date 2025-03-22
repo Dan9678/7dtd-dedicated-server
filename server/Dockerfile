@@ -10,7 +10,10 @@ USER steam
 WORKDIR /home/steam
 
 # Copy scripts
-COPY install.sh start7dtd.sh update_config.py mod_scripts/ . 
+COPY install.sh start7dtd.sh update_config.py .
+
+# Copy mod script folders
+COPY mod_scripts/ mod_scripts/
 
 # Set the entrypoint
 ENTRYPOINT ["/home/steam/install.sh"]
