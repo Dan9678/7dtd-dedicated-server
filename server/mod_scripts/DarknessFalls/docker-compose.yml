@@ -1,0 +1,20 @@
+# Darkness Falls sample deployment & configuration.
+# Use these settings to start a Darkness Falls server.
+# Add any valid serverconfig.xml property key and value 
+# to the environment variables to override the default
+# values
+services:
+  7dtd-server:
+    build: .
+    ports:
+      - "26900-26902:26900-26902/udp"
+      - "8080:8080"
+    environment:
+      - GameWorld=DFalls-Navezgane  # Set desired GameWorld
+      - EACEnabled=false 		    # Required by mod
+      - MOD_SCRIPT=DarknessFalls 	# Required to trigger mod script
+      - MODE=manual  			    # Change to "manual" to prevent auto-start
+      - BETA_VERSION="v1.2"         # Darkness Falls mod requires an earlier version of 7DTD
+      - MOD_URL="http://darknessfallsmod.co.uk/DF-V6-DEV-B19.zip" # Where to get the mod
+    volumes:
+      - ./server_data:/steamapps

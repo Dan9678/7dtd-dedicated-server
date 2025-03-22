@@ -1,16 +1,36 @@
 #!/bin/bash
+set -euo pipefail  # Add strict error handling
 
 # Install/update 7 Days to Die server
 echo "Installing/Updating 7 Days to Die server..."
 
-max_retries=3  # Increased retries
-retry_delay=30  # Increased delay
+max_retries=3
+retry_delay=30
 attempt=1
-install_dir="/steamapps"  # Specify install directory
+install_dir="/steamapps"
+
+# Add validation for beta format
+if [ -n "${BETA:-}" ]; then
+    if [[ ! "$BETA" =~ ^[a-zA-Z0-9_.-]+$ ]]; then
+        echo "Error: Invalid beta version format"
+        exit 1
+    fi
+    BETA_OPTION="-beta $BETA"
+else
+    BETA_OPTION=""
+fi
+
+# Create installation directory if missing
+mkdir -p "$install_dir"
 
 while [ $attempt -le $max_retries ]; do
-    /home/steam/steamcmd/steamcmd.sh +force_install_dir "$install_dir" +login anonymous +app_update 294420 validate +quit
-    if [ $? -eq 0 ]; then
+    echo "Attempt $attempt of $max_retries"
+    if /home/steam/steamcmd/steamcmd.sh \
+        +force_install_dir "$install_dir" \
+        +login anonymous \
+        +app_update 294420 $BETA_OPTION validate \
+        +quit;
+    then
         echo "Installation/Update successful."
         break
     else
@@ -20,23 +40,22 @@ while [ $attempt -le $max_retries ]; do
     attempt=$((attempt + 1))
 done
 
-if [ $attempt -gt $max_retries ]; then
-    echo "Installation/Update failed after $max_retries attempts."
-    exit 1
-fi
+[ $attempt -le $max_retries ] || { echo "Installation failed after $max_retries attempts"; exit 1; }
 
-# Set default mode if not specified
-MODE=${MODE:-"manual"}
+# Validate mode input
+case "${MODE:-manual}" in
+    server|manual) ;;
+    *) echo "Error: Invalid MODE specified"; exit 1 ;;
+esac
 
-if [ "$MODE" = "server" ]; then 
+if [ "${MODE:-manual}" = "server" ]; then 
     echo "Starting 7DTD server..."
-    if ! ./start7dtd.sh; then
-        echo "Failed to start 7DTD server."
-        exit 1
-    fi
+    exec ./start7dtd.sh  # Use exec to replace shell process
 else
-    echo "To start server run ./start7dtd.sh or ./install.sh to reinstall 7dtd."
-    # Keep the container running
-    exec tail -f /dev/null
+    echo "Server not starting automatically (MODE=manual). To start:"
+    echo "1. Attach to container: docker exec -it <container> bash"
+    echo "2. Run: ./start7dtd.sh"
+    exec tail -f /dev/null  # Keep container alive
 fi
+
 
