@@ -2,7 +2,7 @@ FROM cm2network/steamcmd:latest
 
 # Install Python
 USER root
-RUN apt-get update && apt-get install -y python3 python3-pip && \
+RUN apt-get update && apt-get install -y python3 python3-pip unzip && \
     rm -rf /var/lib/apt/lists/*
 USER steam
 

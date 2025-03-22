@@ -2,7 +2,7 @@
 # Darkness Falls Mod Installer for a fresh 7 Days to Die server
 
 # Variables
-SERVER_DIR="${HOME}/7dtd-server"
+SERVER_DIR="/steamapps"
 MODS_DIR="${SERVER_DIR}/Mods"
 MOD_URL="https://github.com/KhaineGB/DarknessFalls/archive/refs/heads/master.zip"
 TEMP_DIR="/tmp/darkness_falls"
