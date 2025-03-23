@@ -16,5 +16,6 @@ services:
       - WorldGenSize=8192
       - GameName=dads_game
       - MODE=server             # Change to "manual" to prevent auto-start
+      - VALIDATE=false          # Change this to true to enable steam install validation
     volumes:
       - ./server_data:/steamapps

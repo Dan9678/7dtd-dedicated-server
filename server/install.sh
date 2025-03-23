@@ -23,12 +23,16 @@ fi
 # Create installation directory if missing
 mkdir -p "$install_dir"
 
+# Default value for VALIDATE if not set
+VALIDATE=${VALIDATE:-true}
+
 while [ $attempt -le $max_retries ]; do
     echo "Attempt $attempt of $max_retries"
     if /home/steam/steamcmd/steamcmd.sh \
         +force_install_dir "$install_dir" \
         +login anonymous \
-        +app_update 294420 $BETA_OPTION validate \
+        +app_update 294420 $BETA_OPTION \
+        ${VALIDATE:+validate} \
         +quit;
     then
         echo "Installation/Update successful."
