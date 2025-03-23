@@ -60,7 +60,8 @@ services:
       - WorldGenSeed=Afunseed
       - WorldGenSize=8192
       - GameName=dads_game
-      - MODE=server  # Change to "manual" for manual modifications
+      - MODE=server     # Change to "manual" for manual modifications
+      - VALIDATE=true   # Set to "false" to skip validation during updates (faster, but may cause issues if files are corrupted). Default: true
     volumes:
       - ./server_data:/steamapps
 ```
@@ -95,7 +96,8 @@ services:
       - WorldGenSeed=Afunseed
       - WorldGenSize=8192
       - GameName=dads_game
-      - MODE=manual  # Change to "manual" for manual modifications
+      - MODE=manual     # Change to "manual" for manual modifications
+      - VALIDATE=true   # Set to "false" to skip validation during updates (faster, but may
     volumes:
       - ./server_data:/steamapps
 ```

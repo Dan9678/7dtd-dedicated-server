@@ -15,7 +15,7 @@ services:
       - WorldGenSeed=Afunseed
       - WorldGenSize=8192
       - GameName=dads_game
-      - MODE=server             # Change to "manual" to prevent auto-start
-      - VALIDATE=false          # Change this to true to enable steam install validation
+      - MODE=server     # Change to "manual" to prevent auto-start
+      - VALIDATE=true   # Set to "false" to skip validation during updates (faster, but may cause issues if files are corrupted). Default: true
     volumes:
       - ./server_data:/steamapps
