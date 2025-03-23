@@ -38,7 +38,7 @@ This repository provides a **Dockerized** setup for running a dedicated *7 Days 
 ### **1️⃣ Clone the Repository**
 
 ```sh
-git clone https://github.com/yourusername/7dtd-dedicated-server.git
+git clone https://github.com/Dan9678/7dtd-dedicated-server.git
 cd 7dtd-dedicated-server/server
 ```
 
