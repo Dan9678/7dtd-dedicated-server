@@ -42,20 +42,40 @@ done
 
 [ $attempt -le $max_retries ] || { echo "Installation failed after $max_retries attempts"; exit 1; }
 
+# Run mod script
+if [ -n "${MOD_SCRIPT:-}" ]; then
+    script_path="mod_scripts/${MOD_SCRIPT}/mod_script.sh"
+    if [ ! -f "$script_path" ]; then
+        echo "Error: Mod script not found at '$script_path'"
+        exit 1
+    fi
+    echo "Executing $MOD_SCRIPT mod script"
+    ./"$script_path"
+fi
+
 # Validate mode input
 case "${MODE:-manual}" in
     server|manual) ;;
     *) echo "Error: Invalid MODE specified"; exit 1 ;;
 esac
 
+# Insure start7dtd.sh exists
+start_script="/home/steam/start7dtd.sh"
+
+if [ ! -f "$start_script" ]; then
+    echo "Error: The server start script $start_script was not found"
+    echo "Please verify it is being installed in the Docker file and rebuild the image"
+    exit 1
+fi
+
+# Launch manual mode or start the server
 if [ "${MODE:-manual}" = "server" ]; then 
     echo "Starting 7DTD server..."
-    exec ./start7dtd.sh  # Use exec to replace shell process
+    exec "$start_script"  # Use exec to replace shell process
 else
     echo "Server not starting automatically (MODE=manual). To start:"
     echo "1. Attach to container: docker exec -it <container> bash"
-    echo "2. Run: ./start7dtd.sh"
+    echo "2. Run: $start_script"
     exec tail -f /dev/null  # Keep container alive
 fi
-
 
